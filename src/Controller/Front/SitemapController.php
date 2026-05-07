@@ -33,6 +33,12 @@ class SitemapController extends AbstractController
         ];
 
         $urls[] = [
+            'loc' => $this->generateUrl('app_front_video_index', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'changefreq' => 'weekly',
+            'priority' => '0.8',
+        ];
+
+        $urls[] = [
             'loc' => $this->generateUrl('app_front_contact', [], UrlGeneratorInterface::ABSOLUTE_URL),
             'changefreq' => 'monthly',
             'priority' => '0.6',

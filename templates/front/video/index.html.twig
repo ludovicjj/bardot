@@ -1,0 +1,82 @@
+{% extends 'front/base_front.html.twig' %}
+
+{% block title %}Vidéos | Hollywood Paris{% endblock %}
+
+{% block meta_description %}Découvrez les vidéos d'Hollywood Paris — backstage, événements et créations vidéo réalisées à Paris.{% endblock %}
+
+{% block canonical %}{{ app.request.schemeAndHttpHost ~ path('app_front_video_index') }}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('front_video_index') }}
+{% endblock %}
+
+{% block body %}
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="text-center mb-10">
+            <h1 class="font-['Bodoni_Moda',serif] font-normal uppercase tracking-wider text-5xl md:text-7xl text-gray-900 mb-4">
+                Vidéos
+            </h1>
+            <p class="text-sm md:text-lg text-gray-600 max-w-[200px] md:max-w-2xl mx-auto">
+                Une sélection de nos productions vidéo
+            </p>
+        </div>
+
+        {% if videos is empty %}
+            <div class="text-center py-20">
+                <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <p class="text-gray-500">Aucune vidéo disponible pour le moment</p>
+            </div>
+        {% else %}
+            <div class="flex flex-col gap-12 max-w-4xl mx-auto">
+                {% for video in videos %}
+                    {% set thumbnailUrl = video.thumbnailUrl %}
+                    <article class="flex flex-col">
+                        <button type="button"
+                                class="group relative aspect-video bg-gray-900 overflow-hidden rounded-lg shadow-sm cursor-pointer"
+                                data-video-embed
+                                data-embed-url="{{ video.provider.embedUrl(video.externalId) }}"
+                                data-video-title="{{ video.title ?: 'Vidéo' }}"
+                                aria-label="Lire la vidéo{{ video.title ? ' : ' ~ video.title : '' }}">
+                            {% if thumbnailUrl %}
+                                <img src="{{ thumbnailUrl }}"
+                                     alt=""
+                                     loading="lazy"
+                                     onerror="this.style.display='none'"
+                                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                            {% endif %}
+                            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition flex items-center justify-center">
+                                <span class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/90 group-hover:bg-white shadow-lg transition-transform group-hover:scale-110">
+                                    <svg class="w-8 h-8 text-gray-900 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </button>
+
+                        {% if video.title %}
+                            <h2 class="mt-4 text-lg font-semibold text-gray-900">
+                                {{ video.title }}
+                            </h2>
+                        {% endif %}
+
+                        {% if video.description %}
+                            <div class="mt-2 text-sm text-gray-600
+                                        [&_p]:mb-3 [&_p:last-child]:mb-0
+                                        [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3
+                                        [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3
+                                        [&_strong]:font-semibold
+                                        [&_em]:italic
+                                        [&_u]:underline
+                                        [&_blockquote]:border-l-2 [&_blockquote]:border-gray-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:mb-3">
+                                {{ video.description|raw }}
+                            </div>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

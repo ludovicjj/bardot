@@ -1,0 +1,93 @@
+/* Dark theme overrides for CKEditor 5 — matches the slate-based admin palette */
+
+:root {
+    /* Toolbar */
+    --ck-color-toolbar-background: #0f172a;        /* slate-900 */
+    --ck-color-toolbar-border: #475569;            /* slate-600 */
+
+    /* Editor body */
+    --ck-color-base-background: #1e293b;           /* slate-800 */
+    --ck-color-base-foreground: #0f172a;           /* slate-900 */
+    --ck-color-base-border: #475569;
+    --ck-color-base-text: #ffffff;
+    --ck-color-text: #ffffff;
+    --ck-color-shadow-drop: rgba(0, 0, 0, 0.3);
+    --ck-color-shadow-inner: rgba(0, 0, 0, 0.1);
+
+    /* Buttons */
+    --ck-color-button-default-background: transparent;
+    --ck-color-button-default-hover-background: #334155;       /* slate-700 */
+    --ck-color-button-default-active-background: #334155;
+    --ck-color-button-on-background: #475569;                  /* slate-600 */
+    --ck-color-button-on-hover-background: #64748b;            /* slate-500 */
+    --ck-color-button-on-color: #ffffff;
+    --ck-color-button-action-background: #9810FA;              /* purple-600 */
+    --ck-color-button-action-hover-background: #a855f7;        /* purple-500 */
+
+    /* Dropdowns / lists */
+    --ck-color-dropdown-panel-background: #1e293b;
+    --ck-color-dropdown-panel-border: #475569;
+    --ck-color-list-background: #1e293b;
+    --ck-color-list-button-hover-background: #334155;
+    --ck-color-list-button-on-background: #9810FA;
+    --ck-color-list-button-on-background-focus: #a855f7;
+    --ck-color-list-button-on-text: #ffffff;
+
+    /* Tooltip */
+    --ck-color-tooltip-background: #0f172a;
+    --ck-color-tooltip-text: #ffffff;
+}
+
+// Main container
+.ck.ck-reset.ck-editor.ck-rounded-corners {
+    overflow: hidden;
+    border: 1px solid #475569 !important;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+// Toolbar container
+.ck.ck-editor__top {
+    .ck-sticky-panel {
+        .ck-sticky-panel__content {
+            border: none !important;
+            .ck.ck-toolbar {
+                background: #0f172a !important;
+                border-bottom: 1px solid #384060 !important;
+
+                .ck.ck-button {
+                    color: #cbd5e1;
+                }
+
+                .ck.ck-button:not(.ck-disabled):hover {
+                    color: #1e293b;
+                }
+            }
+        }
+    }
+}
+
+// Body container
+.ck.ck-editor__main > .ck-editor__editable {
+    min-height: 200px;
+    background: #1e293b !important;
+    color: #ffffff;
+    border: none;
+    box-shadow: none;
+}
+
+.ck.ck-editor__main > .ck-editor__editable.ck-focused:not(.ck-read-only) {
+    border: none;
+    box-shadow: inset 0 0 0 2px #a855f7;
+}
+
+/* Placeholder color */
+.ck.ck-editor__editable .ck-placeholder::before,
+.ck.ck-editor__editable.ck-placeholder::before {
+    color: #64748b !important;
+}
+
+/* Hide the "Powered by CKEditor" balloon */
+.ck.ck-balloon-panel.ck-powered-by-balloon,
+.ck-powered-by-balloon {
+    display: none !important;
+}
