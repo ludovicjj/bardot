@@ -25,10 +25,13 @@ Encore
     .addEntry('admin_gallery_index', './assets/js/admin/gallery-index.js')
     .addEntry('admin_settings', './assets/js/admin/settings.js')
     .addEntry('admin_category', './assets/js/admin/category.js')
+    .addEntry('admin_video', './assets/js/admin/video.js')
+    .addEntry('admin_video_form', './assets/js/admin/video-form.js')
     .addEntry('front_app', './assets/js/front/app.js')
     .addEntry('front_gallery_index', './assets/js/front/gallery-index.js')
     .addEntry('front_gallery_show', './assets/js/front/gallery-show.js')
     .addEntry('front_contact', './assets/js/front/contact.js')
+    .addEntry('front_video_index', './assets/js/front/video-index.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -44,6 +47,10 @@ Encore
      * list of features, see:
      * https://symfony.com/doc/current/frontend.html#adding-more-features
      */
+    .copyFiles([
+        {from: './assets/js/ckeditor', to: 'ckeditor/[path][name].[hash:8].[ext]'},
+    ])
+
     .cleanupOutputBeforeBuild()
 
     // Displays build status system notifications to the user

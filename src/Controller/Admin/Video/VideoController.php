@@ -1,0 +1,145 @@
+<?php
+
+namespace App\Controller\Admin\Video;
+
+use App\Entity\Video;
+use App\Form\VideoType;
+use App\Repository\VideoRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Throwable;
+
+#[Route('/admin/video', name: 'app_admin_video_')]
+#[IsGranted('ROLE_ADMIN')]
+class VideoController extends AbstractController
+{
+    #[Route('', name: 'index', methods: ['GET'])]
+    public function index(VideoRepository $videoRepository): Response
+    {
+        return $this->render('admin/video/index.html.twig', [
+            'videos' => $videoRepository->findAllOrdered(),
+            'videoCount' => $videoRepository->countAll(),
+        ]);
+    }
+
+    #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
+    public function create(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        VideoRepository $videoRepository,
+    ): Response {
+        $video = new Video();
+        $form = $this->createForm(VideoType::class, $video);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $video->setPosition($videoRepository->getNextPosition());
+
+            $entityManager->persist($video);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Vidéo ajoutée avec succès.');
+
+            return $this->redirectToRoute('app_admin_video_index');
+        }
+
+        return $this->render('admin/video/create.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/update', name: 'update', methods: ['GET', 'POST'])]
+    public function update(
+        Request $request,
+        Video $video,
+        EntityManagerInterface $entityManager,
+    ): Response {
+        $form = $this->createForm(VideoType::class, $video);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Vidéo modifiée avec succès.');
+
+            return $this->redirectToRoute('app_admin_video_index');
+        }
+
+        return $this->render('admin/video/update.html.twig', [
+            'video' => $video,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/delete', name: 'delete', methods: ['POST'])]
+    public function delete(
+        Request $request,
+        Video $video,
+        EntityManagerInterface $entityManager,
+    ): Response {
+        if ($this->isCsrfTokenValid('delete' . $video->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($video);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Vidéo supprimée avec succès.');
+        }
+
+        return $this->redirectToRoute('app_admin_video_index');
+    }
+
+    #[Route('/{id}/toggle', name: 'toggle', methods: ['POST'])]
+    public function toggle(
+        Request $request,
+        Video $video,
+        EntityManagerInterface $entityManager,
+    ): Response {
+        if ($this->isCsrfTokenValid('toggle' . $video->getId(), $request->request->get('_token'))) {
+            $video->setActive(!$video->isActive());
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_admin_video_index');
+    }
+
+    #[Route('/reorder', name: 'reorder', methods: ['POST'])]
+    public function reorder(
+        Request $request,
+        VideoRepository $videoRepository,
+        EntityManagerInterface $entityManager,
+    ): JsonResponse {
+        try {
+            $ids = $request->toArray()['ids'] ?? [];
+
+            if (!is_array($ids)) {
+                throw new InvalidArgumentException('Invalid input data, expected array.');
+            }
+
+            $videos = $videoRepository->findBy(['id' => $ids]);
+            $indexed = [];
+            foreach ($videos as $video) {
+                $indexed[$video->getId()] = $video;
+            }
+
+            foreach ($ids as $position => $id) {
+                if (isset($indexed[$id])) {
+                    $indexed[$id]->setPosition($position);
+                }
+            }
+
+            $entityManager->flush();
+
+            return $this->json(['success' => true]);
+        } catch (Throwable $exception) {
+            return $this->json([
+                'success' => false,
+                'message' => $exception->getMessage(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+}
