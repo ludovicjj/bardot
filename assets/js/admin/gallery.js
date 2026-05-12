@@ -20,3 +20,16 @@ if (document.querySelector('#pictures-dropzone')) {
 
 // Init Categories TomSelect
 initCategorySearch('.js-category-search');
+
+// Toggle the download URL field based on the downloadable checkbox
+const downloadToggle = document.querySelector('#gallery_downloadable');
+const downloadWrapper = document.querySelector('#download-url-wrapper');
+if (downloadToggle && downloadWrapper) {
+    downloadToggle.addEventListener('change', () => {
+        downloadWrapper.classList.toggle('hidden', !downloadToggle.checked);
+    });
+
+    if (downloadToggle.checked) {
+        downloadWrapper.classList.toggle('hidden', !downloadToggle.checked);
+    }
+}
