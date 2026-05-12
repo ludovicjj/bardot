@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Setting;
 
 use App\Entity\Setting;
 use App\Enum\MediaSetting;
 use App\Repository\SettingRepository;
+use App\Service\S3Service;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Symfony\Component\Form\FormInterface;

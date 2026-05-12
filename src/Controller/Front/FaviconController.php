@@ -3,7 +3,7 @@
 namespace App\Controller\Front;
 
 use App\Enum\MediaSetting;
-use App\Service\MediaSettingService;
+use App\Service\Setting\MediaSettingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

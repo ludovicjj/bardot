@@ -6,6 +6,7 @@ use App\Enum\VideoProvider;
 use App\Repository\VideoRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
@@ -42,6 +43,12 @@ class Video
     #[ORM\Column(options: ['default' => true])]
     private bool $active = true;
 
+    #[ORM\Column(options: ['default' => true])]
+    private bool $visibility = true;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $token = null;
+
     #[ORM\Column(options: ['default' => 0])]
     private int $position = 0;
 
@@ -54,6 +61,7 @@ class Video
     #[ORM\PrePersist]
     public function onPrePersist(): void
     {
+        $this->token = $this->generateToken();
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
     }
@@ -163,6 +171,44 @@ class Video
         $this->position = $position;
 
         return $this;
+    }
+
+    public function isVisibility(): bool
+    {
+        return $this->visibility;
+    }
+
+    public function setVisibility(bool $visibility): static
+    {
+        $this->visibility = $visibility;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): static
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function resetToken(): void
+    {
+        $this->token = $this->generateToken();
+    }
+
+    private function generateToken(): string
+    {
+        try {
+            return bin2hex(random_bytes(32));
+        } catch (Exception $e) {
+            return bin2hex(openssl_random_pseudo_bytes(32));
+        }
     }
 
     public function getCreatedAt(): ?DateTimeImmutable
