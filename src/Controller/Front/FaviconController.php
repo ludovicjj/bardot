@@ -7,6 +7,7 @@ use App\Service\MediaSettingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\Routing\Attribute\Route;
 
 class FaviconController extends AbstractController
@@ -23,6 +24,7 @@ class FaviconController extends AbstractController
         $response = new RedirectResponse($url, Response::HTTP_FOUND);
         $response->setPublic();
         $response->setMaxAge(86400);
+        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
 
         return $response;
     }
