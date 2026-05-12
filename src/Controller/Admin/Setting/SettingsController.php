@@ -9,7 +9,7 @@ use App\Form\HeroType;
 use App\Form\LogoType;
 use App\Form\SocialLinkType;
 use App\Repository\SocialLinkRepository;
-use App\Service\MediaSettingService;
+use App\Service\Setting\MediaSettingService;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

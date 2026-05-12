@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Gallery;
 
 use App\Entity\Gallery;
 use App\Entity\Picture;
 use App\Repository\PictureRepository;
+use App\Service\S3Service;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Symfony\Bundle\SecurityBundle\Security;

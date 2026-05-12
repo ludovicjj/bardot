@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Gallery;
 
 use App\Entity\Gallery;
 use App\Entity\Thumbnail;
+use App\Service\ImageOptimizerService;
+use App\Service\S3Service;
 use RuntimeException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

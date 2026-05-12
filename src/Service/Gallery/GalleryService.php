@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Gallery;
 
 use App\Entity\Gallery;
 use Symfony\Component\HttpFoundation\Request;

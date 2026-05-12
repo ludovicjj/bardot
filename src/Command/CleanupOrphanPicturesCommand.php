@@ -4,7 +4,7 @@ namespace App\Command;
 
 use App\Entity\Picture;
 use App\Repository\PictureRepository;
-use App\Service\PictureService;
+use App\Service\Gallery\PictureService;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;

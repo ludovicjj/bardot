@@ -3,10 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Video;
-use App\Service\VideoThumbnailResolver;
-use App\Service\VideoUrlParser;
+use App\Service\Video\VideoThumbnailResolver;
+use App\Service\Video\VideoUrlParser;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -55,6 +56,10 @@ class VideoType extends AbstractType
                 'constraints' => [
                     new Callback([$this, 'validateProviderUrl']),
                 ],
+            ])
+            ->add('visibility', CheckboxType::class, [
+                'label' => 'Visibilité',
+                'required' => false,
             ]);
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event): void {

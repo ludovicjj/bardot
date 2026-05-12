@@ -5,6 +5,7 @@ namespace App\Controller\Admin\Video;
 use App\Entity\Video;
 use App\Form\VideoType;
 use App\Repository\VideoRepository;
+use App\Service\Video\VideoService;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,6 +60,7 @@ class VideoController extends AbstractController
         Request $request,
         Video $video,
         EntityManagerInterface $entityManager,
+        VideoService $videoService,
     ): Response {
         $form = $this->createForm(VideoType::class, $video);
         $form->handleRequest($request);
@@ -74,6 +76,22 @@ class VideoController extends AbstractController
         return $this->render('admin/video/update.html.twig', [
             'video' => $video,
             'form' => $form,
+            'front_video_url' => $videoService->generatePublicUrl($video),
+        ]);
+    }
+
+    #[Route('/{id}/token', name: 'token', methods: ['POST'])]
+    public function resetToken(
+        Video $video,
+        EntityManagerInterface $entityManager,
+        VideoService $videoService,
+    ): Response {
+        $video->resetToken();
+        $entityManager->flush();
+
+        return $this->json([
+            'success' => true,
+            'url' => $videoService->generatePublicUrl($video),
         ]);
     }
 

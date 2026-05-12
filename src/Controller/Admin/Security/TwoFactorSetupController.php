@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Security;
 
 use App\Entity\User;
-use App\Service\TotpSetupService;
+use App\Service\Security\TotpSetupService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
