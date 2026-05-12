@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Video;
 
 use App\Enum\VideoProvider;
 use Psr\Log\LoggerInterface;

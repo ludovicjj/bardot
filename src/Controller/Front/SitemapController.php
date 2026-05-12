@@ -4,7 +4,7 @@ namespace App\Controller\Front;
 
 use App\Repository\CategoryRepository;
 use App\Repository\GalleryRepository;
-use App\Service\GalleryService;
+use App\Service\Gallery\GalleryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

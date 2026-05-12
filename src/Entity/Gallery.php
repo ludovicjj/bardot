@@ -52,6 +52,13 @@ class Gallery
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
+    #[ORM\Column(options: ['default' => false])]
+    private bool $downloadable = false;
+
+    #[Assert\Url(message: "Cette URL n'est pas valide.")]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $downloadUrl = null;
+
     /** @var Collection<int, GalleryCategory> */
     #[ORM\OneToMany(targetEntity: GalleryCategory::class, mappedBy: 'gallery', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $galleryCategories;
@@ -208,6 +215,30 @@ class Gallery
     public function setSlug(?string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function isDownloadable(): bool
+    {
+        return $this->downloadable;
+    }
+
+    public function setDownloadable(bool $downloadable): static
+    {
+        $this->downloadable = $downloadable;
+
+        return $this;
+    }
+
+    public function getDownloadUrl(): ?string
+    {
+        return $this->downloadUrl;
+    }
+
+    public function setDownloadUrl(?string $downloadUrl): static
+    {
+        $this->downloadUrl = $downloadUrl;
 
         return $this;
     }

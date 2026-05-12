@@ -8,7 +8,7 @@ import { initCategorySearch } from '../components/CategorySearch';
 new CopyText('#copy-url-btn', '#gallery-url', '#copy-url-text');
 
 // Init Reset Token button
-new ResetToken('#reset-token-btn', '#gallery-url', '#reset-token-text');
+new ResetToken('#reset-token-btn', '#gallery-url', '#reset-token-text', '#gallery-qrcode');
 
 // Init Thumbnail preview
 initThumbnailPreview('#gallery_thumbnailFile', '#thumbnail-dropzone');
@@ -20,3 +20,16 @@ if (document.querySelector('#pictures-dropzone')) {
 
 // Init Categories TomSelect
 initCategorySearch('.js-category-search');
+
+// Toggle the download URL field based on the downloadable checkbox
+const downloadToggle = document.querySelector('#gallery_downloadable');
+const downloadWrapper = document.querySelector('#download-url-wrapper');
+if (downloadToggle && downloadWrapper) {
+    downloadToggle.addEventListener('change', () => {
+        downloadWrapper.classList.toggle('hidden', !downloadToggle.checked);
+    });
+
+    if (downloadToggle.checked) {
+        downloadWrapper.classList.toggle('hidden', !downloadToggle.checked);
+    }
+}

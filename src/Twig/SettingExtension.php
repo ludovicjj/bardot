@@ -3,7 +3,7 @@
 namespace App\Twig;
 
 use App\Enum\MediaSetting;
-use App\Service\MediaSettingService;
+use App\Service\Setting\MediaSettingService;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

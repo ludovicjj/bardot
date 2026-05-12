@@ -4,7 +4,7 @@ namespace App\Controller\Admin\Picture;
 
 use App\Entity\Picture;
 use App\Message\ProcessPictureMessage;
-use App\Service\PictureService;
+use App\Service\Gallery\PictureService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Messenger\Exception\ExceptionInterface;

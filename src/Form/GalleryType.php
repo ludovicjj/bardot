@@ -9,7 +9,11 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Validator\Constraints\Image;
@@ -57,7 +61,30 @@ class GalleryType extends AbstractType
             ->add('visibility', CheckboxType::class, [
                 'label' => 'Visibilité',
                 'required' => false,
+            ])
+            ->add('downloadable', CheckboxType::class, [
+                'label' => 'Téléchargement',
+                'required' => false,
+            ])
+            ->add('downloadUrl', UrlType::class, [
+                'label' => 'URL de téléchargement',
+                'required' => false,
+                'default_protocol' => 'https',
+                'attr' => [
+                    'placeholder' => 'https://www.swisstransfer.com/d/...',
+                ],
             ]);
+
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event): void {
+            /** @var Gallery $gallery */
+            $gallery = $event->getData();
+
+            if ($gallery->isDownloadable() && empty(trim((string) $gallery->getDownloadUrl()))) {
+                $event->getForm()->get('downloadUrl')->addError(
+                    new FormError("Veuillez renseigner l'URL de téléchargement.")
+                );
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Security;
 
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\SvgWriter;

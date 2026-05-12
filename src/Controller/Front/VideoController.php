@@ -2,8 +2,11 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\Video;
 use App\Repository\VideoRepository;
+use App\Service\Video\VideoService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -14,7 +17,23 @@ class VideoController extends AbstractController
     public function index(VideoRepository $videoRepository): Response
     {
         return $this->render('front/video/index.html.twig', [
-            'videos' => $videoRepository->findActive(),
+            'videos' => $videoRepository->findPublicActive(),
+        ]);
+    }
+
+    #[Route('/{id<\d+>}', name: 'show', methods: ['GET'])]
+    public function show(
+        Video $video,
+        Request $request,
+        VideoService $videoService,
+    ): Response {
+        if (!$videoService->canAccessVideo($video, $request->query->get('token'))) {
+            return $this->redirectToRoute('app_front_video_index');
+        }
+
+        return $this->render('front/video/show.html.twig', [
+            'video' => $video,
+            'token' => $request->query->get('token'),
         ]);
     }
 }
