@@ -1,8 +1,8 @@
 {% extends 'front/base_front.html.twig' %}
 
-{% block title %}Vidéos | Hollywood Paris{% endblock %}
+{% block title %}{{ page_meta_title('video_index') }}{% endblock %}
 
-{% block meta_description %}Découvrez les vidéos d'Hollywood Paris — backstage, événements et créations vidéo réalisées à Paris.{% endblock %}
+{% block meta_description %}{{ page_meta_description('video_index') }}{% endblock %}
 
 {% block canonical %}{{ app.request.schemeAndHttpHost ~ path('app_front_video_index') }}{% endblock %}
 
