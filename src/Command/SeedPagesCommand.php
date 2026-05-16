@@ -80,6 +80,26 @@ class SeedPagesCommand extends Command
             'metaDescriptionFr' => 'Contactez Hollywood Paris pour vos projets photo : mariages, événements, séances mode et portraits corporate. Studio photo professionnel à Paris.',
             'metaDescriptionEn' => 'Get in touch with Hollywood Paris for your photo projects: weddings, events, fashion shoots and corporate portraits. Professional photo studio in Paris.',
         ],
+        [
+            'slug' => 'team',
+            'parentSlug' => null,
+            'label' => 'Team',
+            'position' => 7,
+            'metaTitleFr' => 'Team | Hollywood Paris',
+            'metaTitleEn' => 'Team | Hollywood Paris',
+            'metaDescriptionFr' => "Découvrez l'équipe d'Hollywood Paris en vidéo.",
+            'metaDescriptionEn' => 'Meet the Hollywood Paris team in video.',
+        ],
+        [
+            'slug' => 'options',
+            'parentSlug' => null,
+            'label' => 'Options',
+            'position' => 8,
+            'metaTitleFr' => 'Options | Hollywood Paris',
+            'metaTitleEn' => 'Options | Hollywood Paris',
+            'metaDescriptionFr' => 'Découvrez les options proposées par Hollywood Paris en vidéo.',
+            'metaDescriptionEn' => 'Explore the options offered by Hollywood Paris in video.',
+        ],
     ];
 
     public function __construct(
