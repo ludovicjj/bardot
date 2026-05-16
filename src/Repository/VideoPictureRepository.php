@@ -51,4 +51,33 @@ class VideoPictureRepository extends ServiceEntityRepository
 
         return ($lastPosition ?? -1) + 1;
     }
+
+    /**
+     * Single query to fetch all pictures of given videos, grouped by video id.
+     * Avoids the N+1 pattern when rendering a list of videos with their pictures.
+     *
+     * @param int[] $videoIds
+     * @return array<int, VideoPicture[]> keyed by video id
+     */
+    public function findGroupedByVideoIds(array $videoIds): array
+    {
+        if (empty($videoIds)) {
+            return [];
+        }
+
+        $pictures = $this->createQueryBuilder('vp')
+            ->where('vp.video IN (:ids)')
+            ->setParameter('ids', $videoIds)
+            ->orderBy('vp.video', 'ASC')
+            ->addOrderBy('vp.position', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        $grouped = [];
+        foreach ($pictures as $picture) {
+            $grouped[$picture->getVideo()->getId()][] = $picture;
+        }
+
+        return $grouped;
+    }
 }

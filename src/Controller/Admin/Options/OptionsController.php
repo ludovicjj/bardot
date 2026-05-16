@@ -43,6 +43,7 @@ class OptionsController extends AbstractController
 
         return $this->render('admin/options/create.html.twig', [
             'form' => $form,
+            'maxPictures' => VideoPictureService::MAX_PICTURES_PER_VIDEO,
         ]);
     }
 
@@ -153,8 +154,10 @@ class OptionsController extends AbstractController
         Request $request,
         Video $video,
         EntityManagerInterface $entityManager,
+        VideoPictureService $videoPictureService,
     ): Response {
         if ($this->isCsrfTokenValid('delete' . $video->getId(), $request->request->get('_token'))) {
+            $videoPictureService->cleanupFilesForVideo($video);
             $entityManager->remove($video);
             $entityManager->flush();
 

@@ -100,6 +100,21 @@ readonly class VideoPictureService
     }
 
     /**
+     * Delete every S3 file (lightbox + thumbnail) attached to a video's pictures.
+     * Does NOT remove the VideoPicture rows — caller relies on the FK CASCADE
+     * to clean those up when the Video row is removed.
+     */
+    public function cleanupFilesForVideo(Video $video): void
+    {
+        $pictures = $this->repository->findByVideoOrdered($video);
+
+        foreach ($pictures as $picture) {
+            $this->s3Service->deleteFile($picture->getLightboxPath());
+            $this->s3Service->deleteFile($picture->getThumbnailPath());
+        }
+    }
+
+    /**
      * Reorder the VideoPicture rows of a video to match the given id sequence.
      * Ids that don't belong to the video are silently ignored.
      */
