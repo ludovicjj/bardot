@@ -6,7 +6,6 @@ use App\Entity\Option;
 use App\Form\OptionType;
 use App\Repository\OptionPictureRepository;
 use App\Repository\OptionRepository;
-use App\Repository\PageRepository;
 use App\Service\JsonFormHandler;
 use App\Service\Option\OptionPictureService;
 use App\Service\Option\OptionService;
@@ -78,17 +77,8 @@ class OptionsController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         OptionRepository $optionRepository,
-        PageRepository $pageRepository,
         JsonFormHandler $formHandler,
     ): JsonResponse {
-        $page = $pageRepository->findOneBySlug(self::PAGE_SLUG);
-        if ($page === null) {
-            return $this->json(
-                ['error' => sprintf('Page "%s" not seeded. Run app:seed-pages.', self::PAGE_SLUG)],
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-            );
-        }
-
         $option = new Option();
         $form = $this->createForm(OptionType::class, $option);
 
@@ -96,7 +86,6 @@ class OptionsController extends AbstractController
             return $errorResponse;
         }
 
-        $option->setPage($page);
         $option->setPosition($optionRepository->getNextPosition());
 
         $entityManager->persist($option);

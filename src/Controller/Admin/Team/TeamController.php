@@ -4,7 +4,6 @@ namespace App\Controller\Admin\Team;
 
 use App\Entity\Team;
 use App\Form\TeamType;
-use App\Repository\PageRepository;
 use App\Repository\TeamPictureRepository;
 use App\Repository\TeamRepository;
 use App\Service\JsonFormHandler;
@@ -78,25 +77,14 @@ class TeamController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         TeamRepository $teamRepository,
-        PageRepository $pageRepository,
         JsonFormHandler $formHandler,
     ): JsonResponse {
-        $page = $pageRepository->findOneBySlug(self::PAGE_SLUG);
-        if ($page === null) {
-            return $this->json(
-                ['error' => sprintf('Page "%s" not seeded. Run app:seed-pages.', self::PAGE_SLUG)],
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-            );
-        }
-
         $team = new Team();
         $form = $this->createForm(TeamType::class, $team);
 
         if ($errorResponse = $formHandler->getValidationErrorResponse($form, $request)) {
             return $errorResponse;
         }
-
-        $team->setPage($page);
         $team->setPosition($teamRepository->getNextPosition());
 
         $entityManager->persist($team);
