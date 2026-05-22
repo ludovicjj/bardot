@@ -120,6 +120,16 @@ class SeedPagesCommand extends Command
             'metaDescriptionFr' => "Option proposée par Hollywood Paris.",
             'metaDescriptionEn' => 'Option offered by Hollywood Paris.',
         ],
+        [
+            'slug' => 'review_index',
+            'parentSlug' => null,
+            'label' => 'Avis',
+            'position' => 11,
+            'metaTitleFr' => 'Avis clients | Hollywood Paris',
+            'metaTitleEn' => 'Client reviews | Hollywood Paris',
+            'metaDescriptionFr' => "Découvrez les avis laissés par les clients d'Hollywood Paris, studio photo professionnel à Paris.",
+            'metaDescriptionEn' => 'Read reviews left by Hollywood Paris clients, professional photo studio based in Paris.',
+        ],
     ];
 
     public function __construct(
