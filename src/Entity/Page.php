@@ -35,6 +35,20 @@ class Page
     #[ORM\Column(options: ['default' => 0])]
     private int $position = 0;
 
+    #[Assert\Length(max: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $titleFr = null;
+
+    #[Assert\Length(max: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $titleEn = null;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $subtitleFr = null;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $subtitleEn = null;
+
     #[Assert\NotBlank]
     #[Assert\Length(max: 70)]
     #[ORM\Column(length: 255)]
@@ -123,6 +137,54 @@ class Page
     public function setPosition(int $position): static
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getTitleFr(): ?string
+    {
+        return $this->titleFr;
+    }
+
+    public function setTitleFr(?string $titleFr): static
+    {
+        $this->titleFr = $titleFr;
+
+        return $this;
+    }
+
+    public function getTitleEn(): ?string
+    {
+        return $this->titleEn;
+    }
+
+    public function setTitleEn(?string $titleEn): static
+    {
+        $this->titleEn = $titleEn;
+
+        return $this;
+    }
+
+    public function getSubtitleFr(): ?string
+    {
+        return $this->subtitleFr;
+    }
+
+    public function setSubtitleFr(?string $subtitleFr): static
+    {
+        $this->subtitleFr = $subtitleFr;
+
+        return $this;
+    }
+
+    public function getSubtitleEn(): ?string
+    {
+        return $this->subtitleEn;
+    }
+
+    public function setSubtitleEn(?string $subtitleEn): static
+    {
+        $this->subtitleEn = $subtitleEn;
 
         return $this;
     }

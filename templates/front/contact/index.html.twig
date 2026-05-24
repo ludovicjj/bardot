@@ -20,15 +20,16 @@
     <div class="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div class="text-center mb-10">
             <h1 class="font-['Bodoni_Moda',serif] font-normal uppercase tracking-wider text-5xl md:text-7xl text-gray-900 mb-4">
-                {{ 'contact.title'|trans }}
+                {{ page_title('contact') }}
             </h1>
             <p class="text-sm md:text-lg text-gray-600 max-w-[200px] md:max-w-none mx-auto">
-                {{ 'contact.subtitle'|trans }}
+                {{ page_subtitle('contact')|nl2br }}
             </p>
         </div>
 
         <div class="flex flex-col items-center justify-center gap-3 text-gray-900 mb-10">
-            {{ include('partials/icons/globe.html.twig', {class: 'w-7 h-7 shrink-0'}) }}
+            <img src="{{ asset('build/img/earth-planet.png') }}" alt="planet" class="w-10 h-10 shrink-0">
+{#            {{ include('partials/icons/globe.html.twig', {class: 'w-7 h-7 shrink-0'}) }}#}
             <p class="text-xs md:text-base">{{ 'footer.international'|trans }}</p>
         </div>
 

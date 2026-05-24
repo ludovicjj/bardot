@@ -14,6 +14,38 @@ class PageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('titleFr', TextType::class, [
+                'label' => 'Titre de la page (FR)',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Titre affiché sur la page',
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('titleEn', TextType::class, [
+                'label' => 'Titre de la page (EN)',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Title displayed on the page',
+                    'maxlength' => 255,
+                ],
+            ])
+            ->add('subtitleFr', TextareaType::class, [
+                'label' => 'Sous-titre (FR)',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Sous-titre affiché sous le titre (une ligne par retour à la ligne)',
+                    'rows' => 3,
+                ],
+            ])
+            ->add('subtitleEn', TextareaType::class, [
+                'label' => 'Sous-titre (EN)',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Subtitle displayed below the title (one line per line break)',
+                    'rows' => 3,
+                ],
+            ])
             ->add('metaTitleFr', TextType::class, [
                 'label' => 'Meta title (FR)',
                 'attr' => [
