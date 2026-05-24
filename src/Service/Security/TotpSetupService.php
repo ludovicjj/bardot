@@ -2,13 +2,21 @@
 
 namespace App\Service\Security;
 
+use App\Enum\BrandSetting;
+use App\Service\Setting\BrandSettingService;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\SvgWriter;
 use OTPHP\TOTP;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-class TotpSetupService
+readonly class TotpSetupService
 {
-    private const string ISSUER = 'Hollywood Paris';
+    public function __construct(
+        private BrandSettingService $brandSettingService,
+        #[Autowire(env: 'BRAND_NAME')]
+        private string $brandName,
+    ) {
+    }
 
     public function generateSecret(): string
     {
@@ -19,7 +27,7 @@ class TotpSetupService
     {
         $totp = TOTP::createFromSecret($secret);
         $totp->setLabel($accountLabel);
-        $totp->setIssuer(self::ISSUER);
+        $totp->setIssuer($this->brandSettingService->get(BrandSetting::SITE_NAME) ?? $this->brandName);
 
         return $totp->getProvisioningUri();
     }

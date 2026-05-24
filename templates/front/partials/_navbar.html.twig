@@ -5,9 +5,9 @@
             <div class="col-start-1 justify-self-start">
                 <a href="{{ path('app_front_home') }}" class="flex items-center">
                     {% if logoUrl %}
-                        <img src="{{ logoUrl }}" alt="Hollywood Paris" class="h-10 w-auto">
+                        <img src="{{ logoUrl }}" alt="{{ site_name() }}" class="h-10 w-auto">
                     {% else %}
-                        <span class="font-['Bodoni_Moda',serif] font-normal uppercase text-base md:text-2xl text-gray-900">Hollywood Paris</span>
+                        <span class="font-['Bodoni_Moda',serif] font-normal uppercase text-base md:text-2xl text-gray-900">{{ site_name() }}</span>
                     {% endif %}
                 </a>
             </div>
