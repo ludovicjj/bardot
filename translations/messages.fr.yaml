@@ -17,14 +17,10 @@ nav:
 
 # Front - home
 home:
-    subtitle1: Votre studio photo au coeur de Paris
-    subtitle2: Événements Pub & Marketing
     cta_galleries: Voir les galeries
 
 # Front - gallery
 gallery:
-    title: Galeries
-    subtitle: Explorez nos collections de galeries
     view: Voir
     back: Retour aux galeries
     download: Télécharger les photos
@@ -36,30 +32,21 @@ gallery:
 
 # Front - video
 video:
-    title: Vidéos
-    subtitle1: Nous avons à coeur de respecter la confidentialité de chacun.
-    subtitle2: Photos & Vidéos supplémentaires disponibles en Privé
     back: Retour aux vidéos
     empty: "Aucune vidéo disponible pour le moment"
 
 # Front - team
 team:
-    title: Team
-    subtitle1: "Découvrez l'équipe d'Hollywood Paris."
     back: Retour à Team
     empty: "Aucun élément disponible pour le moment"
 
 # Front - options
 options:
-    title: Options
-    subtitle1: "Découvrez les options proposées par Hollywood Paris."
     back: Retour aux options
     empty: "Aucune option disponible pour le moment"
 
 # Front - reviews
 reviews:
-    title: Avis
-    subtitle: "Ce qu'on dit de nous."
     empty: "Aucun avis pour le moment"
     send: Envoyer
     flash_success: "Merci pour votre avis. Il sera affiché après validation."
@@ -74,8 +61,6 @@ reviews:
 
 # Front - contact
 contact:
-    title: Contact
-    subtitle: "Une question, un projet ? Écrivez-nous."
     send: Envoyer
     form:
         email_label: "Email *"

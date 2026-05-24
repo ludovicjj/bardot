@@ -55,6 +55,7 @@ Encore
      */
     .copyFiles([
         {from: './assets/js/ckeditor', to: 'ckeditor/[path][name].[hash:8].[ext]'},
+        {from: './assets/img', to: 'img/[path][name].[hash:8].[ext]'},
     ])
 
     .cleanupOutputBeforeBuild()

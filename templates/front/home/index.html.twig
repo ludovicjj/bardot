@@ -50,11 +50,10 @@
         <div class="relative z-10 flex-1 flex flex-col px-4 sm:px-6 lg:px-8">
             <div class="flex-1 flex flex-col items-center justify-center text-center">
                 <h1 class="font-['Bodoni_Moda',serif] font-normal uppercase tracking-wider text-4xl md:text-6xl {{ heroUrl ? 'text-white' : 'text-gray-900' }}">
-                    Hollywood Paris
+                    {{ page_title('home') }}
                 </h1>
                 <div class="mt-6 text-sm md:text-lg max-w-[230px] md:max-w-2xl {{ heroUrl ? 'text-gray-100' : 'text-gray-600' }}">
-                    <p>{{ 'home.subtitle1'|trans }}</p>
-                    <p>{{ 'home.subtitle2'|trans }}</p>
+                    <p>{{ page_subtitle('home')|nl2br }}</p>
                 </div>
             </div>
             <div class="pb-10 flex justify-center">

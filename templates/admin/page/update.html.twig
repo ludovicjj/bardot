@@ -10,7 +10,7 @@
         <div class="bg-slate-900 rounded-xl p-6 border border-slate-700 mb-6">
             <div class="mb-6 pb-6 border-b border-slate-700">
                 <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-                    <a href="{{ path('app_admin_page_index') }}" class="inline-block text-slate-400 hover:text-white text-sm transition">
+                    <a href="{{ path('app_admin_page_index') }}" class="inline-block text-sm text-purple-400 hover:text-purple-300 transition">
                         &larr; Retour aux pages
                     </a>
                     <p class="text-slate-400 text-sm">Slug : <code class="text-slate-300">{{ page.slug }}</code></p>
@@ -18,6 +18,34 @@
             </div>
 
             <div class="space-y-6">
+                <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Contenu de la page</h3>
+
+                <div>
+                    {{ form_label(form.titleFr, null, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-2'}}) }}
+                    {{ form_widget(form.titleFr, {'attr': {'class': 'w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition'}}) }}
+                    {{ form_errors(form.titleFr) }}
+                </div>
+
+                <div>
+                    {{ form_label(form.titleEn, null, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-2'}}) }}
+                    {{ form_widget(form.titleEn, {'attr': {'class': 'w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition'}}) }}
+                    {{ form_errors(form.titleEn) }}
+                </div>
+
+                <div>
+                    {{ form_label(form.subtitleFr, null, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-2'}}) }}
+                    {{ form_widget(form.subtitleFr, {'attr': {'class': 'w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition'}}) }}
+                    {{ form_errors(form.subtitleFr) }}
+                </div>
+
+                <div>
+                    {{ form_label(form.subtitleEn, null, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-2'}}) }}
+                    {{ form_widget(form.subtitleEn, {'attr': {'class': 'w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition'}}) }}
+                    {{ form_errors(form.subtitleEn) }}
+                </div>
+
+                <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider pt-4">SEO</h3>
+
                 <div>
                     {{ form_label(form.metaTitleFr, null, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-2'}}) }}
                     {{ form_widget(form.metaTitleFr, {'attr': {'class': 'w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition'}}) }}
