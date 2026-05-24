@@ -12,6 +12,7 @@ nav:
     videos: Vidéos
     team: Team
     options: Options
+    reviews: Avis
     contact: Contact
 
 # Front - home
@@ -54,6 +55,22 @@ options:
     subtitle1: "Découvrez les options proposées par Hollywood Paris."
     back: Retour aux options
     empty: "Aucune option disponible pour le moment"
+
+# Front - reviews
+reviews:
+    title: Avis
+    subtitle: "Ce qu'on dit de nous."
+    empty: "Aucun avis pour le moment"
+    send: Envoyer
+    flash_success: "Merci pour votre avis. Il sera affiché après validation."
+    flash_rate_limited: "Vous avez déjà envoyé 3 avis aujourd'hui. Merci de revenir demain."
+    form:
+        heading: "Laissez votre avis"
+        pseudo_label: "Pseudo *"
+        pseudo_placeholder: "Votre pseudo"
+        rating_label: "Note *"
+        message_label: "Message *"
+        message_placeholder: "Votre avis..."
 
 # Front - contact
 contact:
