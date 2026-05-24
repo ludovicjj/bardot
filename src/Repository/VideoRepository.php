@@ -30,18 +30,6 @@ class VideoRepository extends ServiceEntityRepository
     /**
      * @return Video[]
      */
-    public function findActive(): array
-    {
-        return $this->createQueryBuilder('v')
-            ->where('v.active = true')
-            ->orderBy('v.position', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @return Video[]
-     */
     public function findPublicActive(): array
     {
         return $this->createQueryBuilder('v')

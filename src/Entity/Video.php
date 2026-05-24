@@ -53,10 +53,10 @@ class Video
     private int $position = 0;
 
     #[ORM\Column]
-    private ?DateTimeImmutable $createdAt = null;
+    private DateTimeImmutable $createdAt;
 
     #[ORM\Column]
-    private ?DateTimeImmutable $updatedAt = null;
+    private DateTimeImmutable $updatedAt;
 
     #[ORM\PrePersist]
     public function onPrePersist(): void
@@ -106,7 +106,7 @@ class Video
         return $this->url;
     }
 
-    public function setUrl(string $url): static
+    public function setUrl(?string $url): static
     {
         $this->url = $url;
 
