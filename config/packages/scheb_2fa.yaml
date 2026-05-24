@@ -5,6 +5,6 @@ scheb_two_factor:
         - Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken
     totp:
         enabled: true
-        server_name: 'Hollywood Paris'                         # Shown in the authenticator app next to the code
-        issuer: 'Hollywood Paris'                              # Embedded in the QR code as the issuer (used by PR 3)
+        server_name: '%env(BRAND_NAME)%'
+        issuer: '%env(BRAND_NAME)%'
         template: admin/security/2fa_form.html.twig    # Custom template rendered for the /2fa page
