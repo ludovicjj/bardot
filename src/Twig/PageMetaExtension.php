@@ -23,24 +23,38 @@ class PageMetaExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('page_meta_title', fn (string $slug): string => $this->title($slug)),
-            new TwigFunction('page_meta_description', fn (string $slug): string => $this->description($slug)),
+            new TwigFunction('page_title', fn (string $slug): string => $this->pageTitle($slug)),
+            new TwigFunction('page_subtitle', fn (string $slug): string => $this->pageSubtitle($slug)),
+            new TwigFunction('page_meta_title', fn (string $slug): string => $this->metaTitle($slug)),
+            new TwigFunction('page_meta_description', fn (string $slug): string => $this->metaDescription($slug)),
         ];
     }
 
-    private function title(string $slug): string
+    private function pageTitle(string $slug): string
     {
         $page = $this->resolve($slug);
 
-        // Resolve local
+        return $this->isEnglish() ? (string) $page->getTitleEn() : (string) $page->getTitleFr();
+    }
+
+    private function pageSubtitle(string $slug): string
+    {
+        $page = $this->resolve($slug);
+
+        return $this->isEnglish() ? (string) $page->getSubtitleEn() : (string) $page->getSubtitleFr();
+    }
+
+    private function metaTitle(string $slug): string
+    {
+        $page = $this->resolve($slug);
+
         return $this->isEnglish() ? (string) $page->getMetaTitleEn() : (string) $page->getMetaTitleFr();
     }
 
-    private function description(string $slug): string
+    private function metaDescription(string $slug): string
     {
         $page = $this->resolve($slug);
 
-        // Resolve local
         return $this->isEnglish() ? (string) $page->getMetaDescriptionEn() : (string) $page->getMetaDescriptionFr();
     }
 

@@ -3,8 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Picture;
+use App\Entity\Review;
 use App\Repository\GalleryRepository;
+use App\Repository\OptionRepository;
 use App\Repository\PictureRepository;
+use App\Repository\ReviewRepository;
+use App\Repository\TeamRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -14,14 +18,23 @@ class DashboardController extends AbstractController
     #[Route(path: '/admin/dashboard', name: 'app_admin_dashboard')]
     public function index(
         GalleryRepository $galleryRepository,
-        PictureRepository $pictureRepository
+        PictureRepository $pictureRepository,
+        TeamRepository $teamRepository,
+        OptionRepository $optionRepository,
+        REviewRepository $reviewRepository,
     ): Response {
         $galleryCount = $galleryRepository->countAll();
         $pictureCount = $pictureRepository->countByStatus(Picture::STATUS_READY);
+        $teamCount = $teamRepository->countAll();
+        $optionCount = $optionRepository->countAll();
+        $reviewCount = $reviewRepository->countByStatus(Review::STATUS_PENDING);
 
         return $this->render('admin/dashboard/index.html.twig', [
             'galleryCount' => $galleryCount,
             'pictureCount' => $pictureCount,
+            'teamCount' => $teamCount,
+            'optionCount' => $optionCount,
+            'reviewCount' => $reviewCount,
         ]);
     }
 }
